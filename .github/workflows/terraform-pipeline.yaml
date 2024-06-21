@@ -1,7 +1,7 @@
 name: "Terraform"
 
 on:
-  workfolow_dispatch:
+  workflow_dispatch:
     inputs:
       option:
         description: "apply or destroy"
