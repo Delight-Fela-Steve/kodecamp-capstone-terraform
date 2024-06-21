@@ -10,16 +10,16 @@ terraform {
 }
 
 provider "aws" {
-  region  = "us-east-1"
+  region = "us-east-1"
 }
 
 resource "aws_instance" "app_server" {
-  ami           = "ami-04b70fa74e45c3917"
-  instance_type = "t2.micro"
+  ami                    = "ami-04b70fa74e45c3917"
+  instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.allow_ssh.id, aws_security_group.allow_web_port.id]
 
-  user_data = "${file("install_docker.sh")}"
-  
+  user_data = file("install_docker.sh")
+
   tags = {
     Name = "KodeCampCapstone"
   }
