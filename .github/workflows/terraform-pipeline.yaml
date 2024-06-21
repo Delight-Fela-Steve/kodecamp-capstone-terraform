@@ -16,7 +16,7 @@ on:
 
 jobs:
   terraform_destroy:
-    if: ${{ inputs.option == "destroy" }}
+    if: ${{ inputs.option == 'destroy' }}
     name: "Terraform Destroy"
     runs-on: ubuntu-latest
     env:
