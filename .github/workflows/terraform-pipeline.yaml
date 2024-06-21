@@ -15,14 +15,14 @@ on:
       - main
 
 jobs:
-  terraform:
-    name: "Terraform"
+  if: ${{ inputs.option == destroy }}
+  terraform_destroy:
+    name: "Terraform Destroy"
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-    if: ${{ inputs.option == destroy }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -48,6 +48,13 @@ jobs:
       - name: Terraform Apply
         run: terraform destroy -auto-approve
 
+  terraform_apply:
+    name: "Terraform Apply"
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v2
