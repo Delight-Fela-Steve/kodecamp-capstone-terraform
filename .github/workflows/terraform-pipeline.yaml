@@ -15,8 +15,8 @@ on:
       - main
 
 jobs:
-  if: ${{ inputs.option == destroy }}
   terraform_destroy:
+    if: ${{ inputs.option == destroy }}
     name: "Terraform Destroy"
     runs-on: ubuntu-latest
     env:
@@ -54,7 +54,7 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
