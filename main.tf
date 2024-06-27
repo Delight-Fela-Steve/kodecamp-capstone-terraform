@@ -77,3 +77,11 @@ resource "aws_vpc_security_group_ingress_rule" "allow_apache_port" {
   ip_protocol       = "tcp"
   to_port           = 80
 }
+
+resource "aws_vpc_security_group_ingress_rule" "allow_free_port" {
+  security_group_id = aws_security_group.allow_web_port.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 3000
+  ip_protocol       = "tcp"
+  to_port           = 3000
+}
