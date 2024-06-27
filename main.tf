@@ -70,8 +70,15 @@ resource "aws_vpc_security_group_ingress_rule" "allow_web_port" {
   to_port           = 8000
 }
 
+resource "aws_security_group" "allow_apache_port" {
+  name        = "allow_apache_port"
+  description = "Allow inbound traffic to port 80"
+  vpc_id      = aws_default_vpc.default.id
+
+}
+
 resource "aws_vpc_security_group_ingress_rule" "allow_apache_port" {
-  security_group_id = aws_security_group.allow_web_port.id
+  security_group_id = aws_security_group.allow_apache_port.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 80
   ip_protocol       = "tcp"
