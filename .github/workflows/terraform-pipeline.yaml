@@ -32,7 +32,6 @@ jobs:
         with:
           terraform_version: "1.5.1"
           terraform_wrapper: false
-            
 
       - name: Terraform Format
         id: fmt
@@ -50,6 +49,7 @@ jobs:
         run: terraform destroy -auto-approve
 
   terraform_apply:
+    if: ${{ inputs.option == 'destroy' }}
     name: "Terraform Apply"
     runs-on: ubuntu-latest
     env:
@@ -64,7 +64,6 @@ jobs:
         uses: hashicorp/setup-terraform@v3.1.1
         with:
           terraform_version: "1.5.1"
-            
 
       - name: Terraform Format
         id: fmt
@@ -80,4 +79,3 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-    
