@@ -49,8 +49,7 @@ jobs:
         run: terraform destroy -auto-approve
 
   terraform_apply:
-    needs: "terraform_destroy"
-    if: ${{ failure() && needs.terraform_destroy.result == 'skipped' }}
+    if: ${{ inputs.option == 'apply' || github.event_name != workflow_dispatch }}
     name: "Terraform Apply"
     runs-on: ubuntu-latest
     env:
