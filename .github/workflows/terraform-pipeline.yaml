@@ -50,7 +50,7 @@ jobs:
 
   terraform_apply:
     needs: "terraform_destroy"
-    if: ${{ needs.terraform_destroy.result == 'skipped' }}
+    if: ${{ failure() }}
     name: "Terraform Apply"
     runs-on: ubuntu-latest
     env:
