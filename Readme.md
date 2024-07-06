@@ -128,7 +128,34 @@ resource "aws_security_group" "allow_apache_port" {
 
     It become more complicated when I tried to integrate terraform into my CI pipeline using github actions. When github actions runs the terraform apply command, the terraform.tfstate is lost when the github actions completes. Also, this leads to a desynchronization of the state you have locally you get errors when you try to run the terraform apply or terraform delete command. 
 
-    *PS*: A few browsing around and I was able to come up with the solution of storing the state in an s3 bucket. This helps with the state in github actions and the synchronizing of your terraform code locally, since they would both be using the same state file. This does not have to be the best way and other methods can be used to handle the terraform state.
+    *PS*: A few browsing around and I was able to come up with the solution of storing the state in an s3 bucketas seen in the code block below. This helps with the state in github actions and the synchronizing of your terraform code locally, since they would both be using the same state file. This does not have to be the best way and other methods can be used to handle the terraform state.
+
+    ```
+    terraform {
+        required_providers {
+            aws = {
+            source  = "hashicorp/aws"
+            version = "~> 5.0"
+            }
+        }
+
+        required_version = ">= 1.5.1"
+
+        backend "s3" {
+            bucket = "kodecamp-capstone"
+            key    = "terraform.tfstate"
+            region = "us-east-1"
+        }
+    }
+    ```
+    emphasis on the following:
+    ```
+    backend "s3" {
+        bucket = "kodecamp-capstone"
+        key    = "terraform.tfstate"
+        region = "us-east-1"
+    }
+    ```
 
     Youtube Link To The Solution:
     https://www.youtube.com/watch?v=LzWBPIgbrXM&t=923s
